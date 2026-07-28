@@ -155,18 +155,17 @@
     text-align: center;
     opacity: 0;
     pointer-events: none;
-    /* نقطة الانطلاق تكون صغيرة جداً في نص الشاشة */
+    /* بنخليه يبدأ كدائرة صغيرة جداً في منتصف الشاشة بالظبط */
     clip-path: circle(0% at 50% 50%);
-    transition: clip-path 1.4s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s ease;
+    transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s ease;
 }
 
 #memories-section.active {
     opacity: 1;
     pointer-events: auto;
-    /* شكل قلب احترافي باستخدام الـ path المتناسق مع الشاشة */
-    clip-path: path('M 500,300 C 500,100 300,0 150,150 C 0,300 0,500 150,650 L 500,950 L 850,650 C 1000,500 1000,300 850,150 C 700,0 500,100 500,300 Z');
+    /* بيفتح بانتظام لحد ما يغطي الشاشة كلها (150% تضمن يملى الشواطئ كلها) */
+    clip-path: circle(150% at 50% 50%);
 }
-
 .memories-content {
     max-width: 600px;
     padding: 20px;
