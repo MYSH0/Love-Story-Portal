@@ -19,17 +19,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #0d0d0d;
+            background-color: #1a1a1a;
         }
 
-        /* خلفية الصور المتحركة المتعددة */
+        /* خلفية الصور المتحركة بـ CSS مبسط ومضمون */
         .bg-slideshow {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
         }
 
         .bg-slideshow img {
@@ -40,40 +40,38 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            animation: slideAnimation 36s infinite;
+            animation: imageAnimation 24s infinite;
         }
 
-        /* توقيتات الـ 6 صور */
+        /* توقيتات الصور بوضوح */
         .bg-slideshow img:nth-child(1) { animation-delay: 0s; }
         .bg-slideshow img:nth-child(2) { animation-delay: 6s; }
         .bg-slideshow img:nth-child(3) { animation-delay: 12s; }
         .bg-slideshow img:nth-child(4) { animation-delay: 18s; }
-        .bg-slideshow img:nth-child(5) { animation-delay: 24s; }
-        .bg-slideshow img:nth-child(6) { animation-delay: 30s; }
 
-        @keyframes slideAnimation {
+        @keyframes imageAnimation {
             0% { opacity: 0; transform: scale(1); }
-            5% { opacity: 1; transform: scale(1.03); }
-            20% { opacity: 1; transform: scale(1.07); }
-            25% { opacity: 0; transform: scale(1.1); }
-            100% { opacity: 0; transform: scale(1); }
+            10% { opacity: 1; }
+            30% { opacity: 1; transform: scale(1.05); }
+            40% { opacity: 0; }
+            100% { opacity: 0; }
         }
 
-        /* طبقة عتمة لتوضيح الكلام وزيادة الجاذبية */
+        /* طبقة عتمة واضحة */
         .overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.55);
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
-        /* صندوق الدخول الفخم والمطور مع الحفاظ على تعديلاتك */
+        /* صندوق الدخول الفخم والمطور */
         .login-card {
             position: relative;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -84,10 +82,9 @@
             max-width: 440px;
             width: 90%;
             color: #fff;
-            animation: fadeInCard 1.2s ease-out;
+            z-index: 10;
         }
 
-        /* تأثير إضاءة نيون خفيفة حول المربع */
         .login-card::before {
             content: '';
             position: absolute;
@@ -101,11 +98,6 @@
             mask-composite: exclude;
             opacity: 0.8;
             pointer-events: none;
-        }
-
-        @keyframes fadeInCard {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .login-card h2 {
@@ -174,17 +166,16 @@
 </head>
 <body>
 
+    <!-- خلفية الصور المتحركة المضمونة -->
     <div class="bg-slideshow">
-        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80" alt="1">
-        <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=1920&q=80" alt="2">
-        <img src="https://images.unsplash.com/photo-1522748982260-6b83c50005d5?auto=format&fit=crop&w=1920&q=80" alt="3">
-        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1920&q=80" alt="4">
-        <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1920&q=80" alt="5">
-        <img src="https://images.unsplash.com/photo-1501901609772-df0848060b33?auto=format&fit=crop&w=1920&q=80" alt="6">
+        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1600&q=80" alt="1">
+        <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=1600&q=80" alt="2">
+        <img src="https://images.unsplash.com/photo-1522748982260-6b83c50005d5?w=1600&q=80" alt="3">
+        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1600&q=80" alt="4">
     </div>
     <div class="overlay"></div>
 
-    <!-- صندوق الدخول (محافظ على تعديلاتك تماماً) -->
+    <!-- صندوق الدخول -->
     <div class="login-card">
         <h2>🔒 دخل كلمه السر الى قولتهالك</h2>
         <div class="input-group">
@@ -198,7 +189,7 @@
         function checkPass() {
             var pass = document.getElementById('passcode').value;
             if(pass === "2024") {
-                alert("مرحباً بك يا غالي، تم الدخول بنجاح! ❤️");
+                alert("❤️مرحباً بك يا حبيبي تم الدخول بنجاح! ❤️");
             } else {
                 document.getElementById('error').style.display = "block";
             }
