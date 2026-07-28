@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Love ❤️</title>
     <style>
-       * {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -19,16 +19,53 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* خلفية تدرج لوني رومانسي متحرك وساحر */
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: #1a1a1a;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* الكود المظبوط للصور الخلفية والمتجاوبة */
+        .bg-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .bg-slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: imageAnimation 24s infinite;
+        }
+
+        .bg-slideshow img:nth-child(1) { animation-delay: 0s; }
+        .bg-slideshow img:nth-child(2) { animation-delay: 6s; }
+        .bg-slideshow img:nth-child(3) { animation-delay: 12s; }
+        .bg-slideshow img:nth-child(4) { animation-delay: 18s; }
+
+        @keyframes imageAnimation {
+            0% { opacity: 0; transform: scale(1); }
+            10% { opacity: 1; }
+            30% { opacity: 1; transform: scale(1.05); }
+            40% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
         }
 
         /* صندوق الدخول الفخم والمطور */
@@ -129,7 +166,7 @@
 </head>
 <body>
 
-    <!-- خلفية الصور المتحركة المضمونة -->
+    <!-- صور الخلفية المتجاورة والمتحركة -->
     <div class="bg-slideshow">
         <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1600&q=80" alt="1">
         <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=1600&q=80" alt="2">
@@ -139,11 +176,10 @@
     <div class="overlay"></div>
 
     <!-- صندوق الدخول -->
-    <body>
     <div class="login-card">
         <h2>🔒 دخل كلمه السر الى قولتهالك</h2>
         <div class="input-group">
-            <input type="password" id="2024" placeholder="مثال: يوم مميز أو تاريخ ميلاد">
+            <input type="password" id="passcode" placeholder="مثال: يوم مميز أو تاريخ ميلاد">
         </div>
         <button onclick="checkPass()">دخول الذكريات ❤️</button>
         <p id="error" class="error-msg">عفواً، الرقم غير صحيح!</p>
@@ -151,7 +187,7 @@
 
     <script>
         function checkPass() {
-            var pass = document.getElementById('2024').value;
+            var pass = document.getElementById('passcode').value;
             if(pass === "2024") {
                 alert("مرحباً بك يا غالي، تم الدخول بنجاح! ❤️");
             } else {
