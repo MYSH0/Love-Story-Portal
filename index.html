@@ -3,167 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Love</title>
+    <title>My Love  ❤️</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body {
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        body, html {
+            width: 100%;
             height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
-            overflow: hidden;
         }
 
-        /* شاشة القفل */
-        #lock-screen {
+        /* خلفية الصور المتحركة الرومانسية */
+        .bg-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bg-slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: fadeInOut 18s infinite;
+        }
+
+        /* توقيتات صور الخلفية المتحركة */
+        .bg-slideshow img:nth-child(1) { animation-delay: 0s; }
+        .bg-slideshow img:nth-child(2) { animation-delay: 6s; }
+        .bg-slideshow img:nth-child(3) { animation-delay: 12s; }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: scale(1); }
+            10% { opacity: 1; transform: scale(1.05); }
+            33% { opacity: 1; transform: scale(1.08); }
+            43% { opacity: 0; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(1); }
+        }
+
+        /* طبقة عتمة شفافة فوق الصور عشان الكلام يبدو واضح ومرتب */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: -1;
+        }
+
+        /* صندوق إدخال الرقم السري الأنيق */
+        .login-card {
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 400px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            color: #fff;
         }
 
-        #lock-screen h2 {
+        .login-card h2 {
             margin-bottom: 20px;
             font-size: 24px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        #lock-screen input {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 30px;
-            text-align: center;
-            font-size: 18px;
+        .input-group {
+            position: relative;
             margin-bottom: 20px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
         }
 
-        #lock-screen button {
-            background: #ff4757;
-            color: white;
+        .login-card input {
+            width: 100%;
+            padding: 14px 20px;
             border: none;
-            padding: 12px 30px;
+            outline: none;
             border-radius: 30px;
+            background: rgba(255, 255, 255, 0.85);
+            color: #333;
             font-size: 16px;
-            cursor: pointer;
+            text-align: center;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
             transition: 0.3s;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
         }
 
-        #lock-screen button:hover {
-            background: #ff6b81;
-            transform: scale(1.05);
+        .login-card input:focus {
+            background: #fff;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+            transition: 0.3s;
+        }
+
+        .login-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 65, 108, 0.6);
         }
 
         .error-msg {
-            color: #ffeaa7;
+            color: #ff8080;
             margin-top: 10px;
             font-size: 14px;
             display: none;
-        }
-
-        /* محتوى الموقع الرئيسي (مخفي لحين فتح القفل) */
-        #main-content {
-            display: none;
-            text-align: center;
-            width: 90%;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        #main-content h1 {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        #main-content p {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
 
-    <!-- شاشة إدخال الرمز أو التاريخ -->
-    <div id="lock-screen">
-        <h2>🔒 أدخل التاريخ المميز أو الرقم السري</h2>
-        <input type="password" id="passcode" placeholder="مثال: 2024 أو تاريخ ميلاد">
-        <br>
-        <button onclick="checkPass()">دخول الذكريات ❤️</button>
-        <div id="error" class="error-msg">الرمز غير صحيح، حاول مرة أخرى!</div>
+    <!-- خلفية الصور الرومانسية المتحركة -->
+    <div class="bg-slideshow">
+        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80" alt="Romantic 1">
+        <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=1920&q=80" alt="Romantic 2">
+        <img src="https://images.unsplash.com/photo-1522748982260-6b83c50005d5?auto=format&fit=crop&w=1920&q=80" alt="Romantic 3">
     </div>
+    <div class="overlay"></div>
 
-    <!-- المحتوى الرئيسي للموقع -->
-    <div id="main-content">
-        <h1>أجمل الذكريات معا 🤍</h1>
-        <p>المساحة دي مخصصة لكل لحظة حلوة جمعتنا، وكل ضحكة عدت بينا.</p>
-        
-        <div class="gallery">
-            <!-- تقدر تحط هنا صوركم بعدين -->
-            <div style="background: rgba(255,255,255,0.2); height: 150px; display:flex; align-items:center; justify-content:center; border-radius:10px;">صورة 1</div>
-            <div style="background: rgba(255,255,255,0.2); height: 150px; display:flex; align-items:center; justify-content:center; border-radius:10px;">صورة 2</div>
-            <div style="background: rgba(255,255,255,0.2); height: 150px; display:flex; align-items:center; justify-content:center; border-radius:10px;">صورة 3</div>
+    <!-- صندوق الدخول -->
+    <div class="login-card">
+        <h2>🔒 أخلِص السر أو التاريخ المميز</h2>
+        <div class="input-group">
+            <input type="password" id="passcode" placeholder="مثال: 2024 أو تاريخ ميلاد">
         </div>
+        <button onclick="checkPass()">دخول الذكريات ❤️</button>
+        <p id="error" class="error-msg">عفواً، الرقم غير صحيح!</p>
     </div>
 
     <script>
-        // الرمز السري أو التاريخ اللي بيفتح الموقع (تقدر تغييره لأي رقم أو تاريخ تحبه)
-        const secretCode = "2024";
-
         function checkPass() {
-            const inputVal = document.getElementById('passcode').value;
-            const lockScreen = document.getElementById('lock-screen');
-            const mainContent = document.getElementById('main-content');
-            const errorMsg = document.getElementById('error');
-
-            if (inputVal === secretCode) {
-                // إخفاء شاشة القفل وإظهار المحتوى بتأثير لطيف
-                lockScreen.style.display = 'none';
-                mainContent.style.display = 'block';
+            var pass = document.getElementById('passcode').value;
+            // تقدر تغير الرقم السري هنا من '2024' للرقم اللي تعوزه
+            if(pass === "2024") {
+                alert("مرحباً بك يا غالي، تم الدخول بنجاح! ❤️");
+                // هنا تقدر تربطها بصفحة ثانية لو حابب، مثلاً: window.location.href = "home.html";
             } else {
-                errorMsg.style.display = 'block';
+                document.getElementById('error').style.display = "block";
             }
         }
     </script>
-
 </body>
 </html>
