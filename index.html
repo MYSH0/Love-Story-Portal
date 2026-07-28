@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حكايتنا وسوا</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* شاشة القفل */
+        #lock-screen {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        #lock-screen h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        #lock-screen input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        #lock-screen button {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        #lock-screen button:hover {
+            background: #ff6b81;
+            transform: scale(1.05);
+        }
+
+        .error-msg {
+            color: #ffeaa7;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* محتوى الموقع الرئيسي (مخفي لحين فتح القفل) */
+        #main-content {
+            display: none;
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        #main-content h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        #main-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة إدخال الرمز أو التاريخ -->
+    <div id="lock-screen">
+        <h2>🔒 أدخل التاريخ المميز أو الرقم السري</h2>
+        <input type="password" id="passcode" placeholder="مثال: 2024 أو تاريخ ميلاد">
+        <br>
+        <button onclick="checkPass()">دخول الذكريات ❤️</button>
+        <div id="error" class="error-msg">الرمز غير صحيح، حاول مرة أخرى!</div>
+    </div>
+
+    <!-- المحتوى الرئيسي للموقع -->
+    <div id="main-content">
+        <h1>أجمل الذكريات معا 🤍</h1>
+        <p>المساحة دي مخصصة لكل لحظة حلوة جمعتنا، وكل ضحكة عدت بينا.</p>
+        
+        <div class="gallery">
+            <!-- تقدر تحط هنا صوركم بعدين -->
+            <div style="background: rgba(255,255,255,0.2); height: 150px; display:flex; align-items:center; justify-content:center; border-radius:10px;">صورة 1</div>
+            <div style="background: rgba(255,255,255,0.2); height: 150px; display:flex; align-items:center; justify-content:center; border-radius:10px;">صورة 2</div>
+            <div style="background: rgba(255,255,255,0.2); height: 150px; display:flex; align-items:center; justify-content:center; border-radius:10px;">صورة 3</div>
+        </div>
+    </div>
+
+    <script>
+        // الرمز السري أو التاريخ اللي بيفتح الموقع (تقدر تغييره لأي رقم أو تاريخ تحبه)
+        const secretCode = "2024";
+
+        function checkPass() {
+            const inputVal = document.getElementById('passcode').value;
+            const lockScreen = document.getElementById('lock-screen');
+            const mainContent = document.getElementById('main-content');
+            const errorMsg = document.getElementById('error');
+
+            if (inputVal === secretCode) {
+                // إخفاء شاشة القفل وإظهار المحتوى بتأثير لطيف
+                lockScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
