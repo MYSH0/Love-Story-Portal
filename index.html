@@ -138,6 +138,60 @@
             display: none;
             text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
+        /* شاشة الذكريات اللي هتفتح بشكل احترافي */
+#memories-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a001a, #330033, #ff416c);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    clip-path: circle(0% at 50% 50%);
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s ease;
+}
+
+#memories-section.active {
+    opacity: 1;
+    pointer-events: auto;
+    clip-path: circle(150% at 50% 50%);
+}
+
+.memories-content {
+    max-width: 600px;
+    padding: 20px;
+    animation: floatCard 3s ease-in-out infinite;
+}
+
+.memories-content h1 {
+    font-size: 35px;
+    margin-bottom: 15px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+}
+
+.memories-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+@keyframes floatCard {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
     </style>
 </head>
 <body>
@@ -159,6 +213,15 @@
         <button onclick="checkPass()">دخول الذكريات ❤️</button>
         <p id="error" class="error-msg">هزعل كده , الرقم غلط يحبيبي !</p>
     </div>
+    <!-- قسم الذكريات اللي هيفتح بعد الباسورد -->
+<div id="memories-section">
+    <div class="memories-content">
+        <h1>أهلاً بكي يا أجمل أقداري ❤️</h1>
+        <p>
+            هنا تبدأ أجمل حكاية وأحلى ذكريات جمعتنا سوا... كل ثانية معاكي بتسوى الدنيا وما فيها، ومفيش كلام يصف قد إيه أنا بحب وجودك في حياتي يا غالية عليّ. ✨
+        </p>
+    </div>
+</div>
 
     <script>
         function checkPass() {
@@ -166,8 +229,8 @@
             // تقدر تغير الرقم السري هنا من '2024' للرقم اللي تعوزه
             if(pass === "2024") {
                 alert("منور  يا حبيبي ، عرفت كلمه السر! ❤️");
-                // هنا تقدر تربطها بصفحة ثانية لو حابب، مثلاً: window.location.href = "home.html";
-            } else {
+                document.getElementById('memories-section').classList.add('active');
+        } else {
                 document.getElementById('error').style.display = "block";
             }
         }
