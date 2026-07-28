@@ -155,16 +155,16 @@
     text-align: center;
     opacity: 0;
     pointer-events: none;
-    /* شكل القلب في البداية مقفول تماماً في المنتصف */
-    clip-path: path('M 500,500 C 500,500 500,500 500,500 C 500,500 500,500 500,500 C 500,500 500,500 500,500 C 500,500 500,500 500,500 Z');
+    /* نقطة البداية في منتصف الشاشة تماماً ومقفولة */
+    clip-path: path('M 50vw,50vh C 50vw,50vh 50vw,50vh 50vw,50vh C 50vw,50vh 50vw,50vh 50vw,50vh C 50vw,50vh 50vw,50vh 50vw,50vh C 50vw,50vh 50vw,50vh 50vh 50vw,50vh Z');
     transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease;
 }
 
 #memories-section.active {
     opacity: 1;
     pointer-events: auto;
-    /* تكبير شكل القلب ليملا الشاشة بالكامل بسلاسة ساحرة */
-    clip-path: path('M 500,200 C 300,-50 0,150 0,400 C 0,650 300,900 500,1100 C 700,900 1000,650 1000,400 C 1000,150 700,-50 500,200 Z');
+    /* تكبير القلب بمسارات نسبية (ViewBox متكامل) يغطي الشاشة في المنتصف */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .memories-content {
