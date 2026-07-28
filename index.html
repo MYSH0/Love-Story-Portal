@@ -19,65 +19,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #1a1a1a;
+            /* خلفية تدرج لوني متحرك فخم وساحر بدون صور خارجية */
+            background: linear-gradient(-45deg, #1f1c2c, #928dab, #ff416c, #ff4b2b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        /* الكود المظبوط للصور الخلفية والمتجاوبة */
-        .bg-slideshow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .bg-slideshow img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            animation: imageAnimation 24s infinite;
-        }
-
-        .bg-slideshow img:nth-child(1) { animation-delay: 0s; }
-        .bg-slideshow img:nth-child(2) { animation-delay: 6s; }
-        .bg-slideshow img:nth-child(3) { animation-delay: 12s; }
-        .bg-slideshow img:nth-child(4) { animation-delay: 18s; }
-
-        @keyframes imageAnimation {
-            0% { opacity: 0; transform: scale(1); }
-            10% { opacity: 1; }
-            30% { opacity: 1; transform: scale(1.05); }
-            40% { opacity: 0; }
-            100% { opacity: 0; }
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: -1;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* صندوق الدخول الفخم والمطور */
         .login-card {
             position: relative;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 50px 35px;
             border-radius: 35px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             text-align: center;
             max-width: 440px;
             width: 90%;
@@ -165,15 +128,6 @@
     </style>
 </head>
 <body>
-
-    <!-- صور الخلفية المتجاورة والمتحركة -->
-    <div class="bg-slideshow">
-        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1600&q=80" alt="1">
-        <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=1600&q=80" alt="2">
-        <img src="https://images.unsplash.com/photo-1522748982260-6b83c50005d5?w=1600&q=80" alt="3">
-        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1600&q=80" alt="4">
-    </div>
-    <div class="overlay"></div>
 
     <!-- صندوق الدخول -->
     <div class="login-card">
