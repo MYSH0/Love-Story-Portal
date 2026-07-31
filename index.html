@@ -406,13 +406,13 @@ canvas.addEventListener('touchmove', (e) => {
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
    function startJourneyAction() {
-    // إخفاء كارت الخربشة تماماً
-    var scratchCard = document.querySelector('.memories-content');
-    if (scratchCard) {
-        scratchCard.style.display = 'none';
+    // إخفاء كارت الخربشة بالكامل
+    var scratchSection = document.getElementById('scratch-section');
+    if (scratchSection) {
+        scratchSection.style.display = 'none';
     }
     
-    // إظهار قسم رحلة الذكريات اللي جواه الصور
+    // إظهار قسم الذكريات وتغيير الـ display لـ block غصب عن أي حاجة
     var memoriesSection = document.getElementById('memories-section');
     if (memoriesSection) {
         memoriesSection.style.display = 'block';
