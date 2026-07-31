@@ -386,7 +386,6 @@
                 // إخفاء صندوق كلمة السر وإظهار كارت الخربشة
                 document.getElementById('loginCard').style.display = 'none';
                 document.getElementById('scratch-section').style.display = 'flex';
-                document.getElementById('final-message-box').style.display = 'block';
                 // تهيئة الكانفاس بعد ظهوره لضمان حساب أبعاده صح
                 setTimeout(initScratchCard, 100);
             } else {
@@ -465,7 +464,9 @@
             var memoriesSection = document.getElementById('memories-section');
             if (memoriesSection) {
                 memoriesSection.style.display = 'block';
+            document.getElementById('final-message-box').style.display = 'block';
             }
+
             
             // صعد لأول الصفحة عشان تتفرج على الصور بمرتاح
             window.scrollTo({ top: 0, behavior: 'smooth' });
