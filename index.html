@@ -253,6 +253,26 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
 }
+/* تنسيق زرار ابدأ الرحلة */
+        .start-journey-btn {
+            margin-top: 20px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.5);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .start-journey-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 30px rgba(255, 65, 108, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -291,6 +311,10 @@
             <!-- طبقة الخربشة (فوق الكلام بـ z-index عالي) -->
             <canvas id="scratchCanvas"></canvas>
         </div>
+        <!-- زرار ابدأ الرحلة -->
+    <button class="start-journey-btn" onclick="startJourneyAction()">
+        Start Journey ✨
+    </button>
     <script>
         function checkPass() {
     var pass = document.getElementById('passcode').value;
@@ -381,6 +405,9 @@ canvas.addEventListener('touchmove', (e) => {
     scratch(e);
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
-    </script>
+   function startJourneyAction() {
+            alert("جاهزة للرحلة؟ يلا بينا نكمل باقي الذكريات ❤️");
+        }
+   </script>
 </body>
 </html>
