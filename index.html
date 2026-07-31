@@ -311,15 +311,25 @@ let isDrawing = false;
 function scratch(e) {
     if (!isDrawing) return;
     const rect = canvas.getBoundingClientRect();
-    // حساب إحداثيات الماوس أو اللمس
     const x = (e.clientX || e.touches[0].clientX) - rect.left;
     const y = (e.clientY || e.touches[0].clientY) - rect.top;
     
-    // أهم حاجة: بنمسح الجزء اللي بنرسم عليه من الكانفاس
     ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(x, y, 30, 0, Math.PI * 2, false); // حجم فرشاة الخدش
-    ctx.fill();
+    
+    // --- هنا التعديل: إنشاء مسار قلب بدل الدايرة ---
+    const heartPath = new Path2D();
+    // حجم القلب (ممكن تعديله بتغيير الأرقام هنا، ده مناسب لفرشاة)
+    const size = 45; 
+    heartPath.moveTo(x, y);
+    heartPath.bezierCurveTo(x, y - size / 2, x + size, y - size, x + size, y + size / 3);
+    heartPath.bezierCurveTo(x + size, y + size, x, y + size * 1.5, x, y + size * 1.8);
+    heartPath.bezierCurveTo(x, y + size * 1.5, x - size, y + size, x - size, y + size / 3);
+    heartPath.bezierCurveTo(x - size, y - size, x, y - size / 2, x, y);
+    heartPath.closePath();
+    
+    // رسم القلب (بدلاً من fill())
+    ctx.fill(heartPath);
+    // --- نهاية التعديل ---
 }
 
 // إعداد أحداث الماوس
