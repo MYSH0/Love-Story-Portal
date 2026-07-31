@@ -376,17 +376,26 @@ canvas.addEventListener('touchmove', (e) => {
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
  // متغير لتتبع الصورة الحالية
+// متغير لتتبع الصورة الحالية
 let currentBgIndex = 0;
 
-// دالة لتغيير الخلفية كل 4 ثوانٍ
+// دالة لتغيير الخلفية داخل صفحة الذكريات فقط
 function changeBackground() {
     currentBgIndex = (currentBgIndex + 1) % bgImages.length;
-    // التأكد من العنصر الحامل للخلفية وتغييرها
-    const bgElement = document.querySelector('.bg-slideshow') || document.body;
-    bgElement.style.backgroundImage = `url('${bgImages[currentBgIndex]}')`;
+    
+    // استهداف صفحة الذكريات المخفية حصرياً
+    const memoriesSection = document.getElementById('memories-section');
+    
+    if (memoriesSection) {
+        const imageUrl = bgImages[currentBgIndex];
+        memoriesSection.style.backgroundImage = `url('${imageUrl}')`;
+        memoriesSection.style.backgroundSize = 'cover';
+        memoriesSection.style.backgroundPosition = 'center';
+        memoriesSection.style.backgroundRepeat = 'no-repeat';
+    }
 }
 
-// تشغيل الدالة كل 4 ثوانٍ باستمرار
+// تشغيل التغيير التلقائي كل 4 ثوانٍ
 setInterval(changeBackground, 4000);
  </script>
 </body>
