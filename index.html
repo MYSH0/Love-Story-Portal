@@ -142,10 +142,14 @@
     position: relative;
     width: 100%;
     max-width: 500px;
-    height: 180px;
+    height: 250px;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    /* خلي الصورة هي الكفر الخلفي جوه الكارت */
+    background-image: url('images (4).jpeg');
+    background-size: cover;
+    background-position: center;
 }
 
 .hidden-text {
@@ -279,42 +283,45 @@
 
         // كود الخربشة يضاف هنا جوه نفس الـ script
         const canvas = document.getElementById('scratchCanvas');
-        const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d');
 
-        function initScratchCard() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            ctx.fillStyle = '#b0b0b0';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = 'bold 18px Cairo, sans-serif';
-            ctx.fillStyle = '#555';
-            ctx.textAlign = 'center';
-            ctx.fillText('✨ اخربش هنا   يا حبيبي  ✨', canvas.width / 2, canvas.height / 2);
-        }
+function initScratchCard() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    
+    // طبقة خفيفة فوق الكفر عشان تبان كأنها قابلة للخدش
+    ctx.fillStyle = 'rgba(200, 200, 200, 0.85)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.font = 'bold 18px Cairo, sans-serif';
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'center';
+    ctx.fillText('✨ اخربش هنا عشان تظهر الصورة والكلام ✨', canvas.width / 2, canvas.height / 2);
+}
 
-        setTimeout(initScratchCard, 500);
+setTimeout(initScratchCard, 500);
 
-        let isDrawing = false;
+let isDrawing = false;
 
-        function scratch(e) {
-            if (!isDrawing) return;
-            const rect = canvas.getBoundingClientRect();
-            const x = (e.clientX || e.touches[0].clientX) - rect.left;
-            const y = (e.clientY || e.touches[0].clientY) - rect.top;
-            
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            ctx.arc(x, y, 25, 0, Math.PI * 2, false);
-            ctx.fill();
-        }
+function scratch(e) {
+    if (!isDrawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX || e.touches[0].clientX) - rect.left;
+    const y = (e.clientY || e.touches[0].clientY) - rect.top;
+    
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 35, 0, Math.PI * 2, false);
+    ctx.fill();
+}
 
-        canvas.addEventListener('mousedown', () => isDrawing = true);
-        canvas.addEventListener('mousemove', scratch);
-        canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mousedown', () => isDrawing = true);
+canvas.addEventListener('mousemove', scratch);
+canvas.addEventListener('mouseup', () => isDrawing = false);
 
-        canvas.addEventListener('touchstart', () => isDrawing = true);
-        canvas.addEventListener('touchmove', scratch);
-        canvas.addEventListener('touchend', () => isDrawing = false);
+canvas.addEventListener('touchstart', () => isDrawing = true);
+canvas.addEventListener('touchmove', scratch);
+canvas.addEventListener('touchend', () => isDrawing = false);
     </script>
 </body>
 </html>
