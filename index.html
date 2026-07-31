@@ -243,18 +243,30 @@
             margin-bottom: 25px;
         }
 
-        .memory-card img {
+        /* حاوية السلايدشو داخل الكارت */
+        .card-slideshow {
+            position: relative;
             width: 100%;
+            height: 400px;
             border-radius: 10px;
-            max-height: 400px;
-            object-fit: contain;
+            overflow: hidden;
             background-color: #f9f9f9;
-            cursor: pointer; /* عشان يبين إن الصورة قابل للضغط */
-            transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
-        .memory-card img:hover {
-            transform: scale(1.02); /* تأثير زووم بسيط لما تقف بالماوس على الصورة */
+        .card-slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .card-slideshow img.active-slide {
+            opacity: 1;
         }
 
         .start-journey-btn {
@@ -420,52 +432,37 @@
         </div>
     </div>
 
-    <!-- قسم رحلة الذكريات -->
+    <!-- قسم رحلة الذكريات (سلايدشو للكروت) -->
     <div id="memories-section">
         <h2 style="color: #ff416c; margin-bottom: 30px; font-size: 32px; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">رحلة ذكرياتنا ❤️</h2>
         
+        <!-- الكارت الأول (يحتوي على 3 صور مثلاً بتلف مع بعضها) -->
         <div class="memory-card">
-            <img src="images (1).jpeg" alt="Memory" onclick="openModal(this)">
-            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">الأغنية اللي بتفكرنا بأحلى أوقاتنا 🎶</p>
+            <div class="card-slideshow" onclick="openActiveModal(this)">
+                <img src="images (1).jpeg" class="active-slide" alt="Memory">
+                <img src="images (2).jpeg" alt="Memory">
+                <img src="images (3).jpeg" alt="Memory">
+            </div>
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أحلى أوقاتنا مع بعض 🎶</p>
         </div>
 
+        <!-- الكارت الثاني (يحتوي على صور تانية بتلف) -->
         <div class="memory-card">
-            <img src="images (2).jpeg" alt="Memory" onclick="openModal(this)">
-            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول خروجة سوا ☕</p>
+            <div class="card-slideshow" onclick="openActiveModal(this)">
+                <img src="images (5).jpeg" class="active-slide" alt="Memory">
+                <img src="images (6).jpeg" alt="Memory">
+                <img src="images (7).jpeg" alt="Memory">
+            </div>
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">ذكرياتنا الجميلة ☕</p>
         </div>
 
+        <!-- الكارت الثالث -->
         <div class="memory-card">
-            <img src="images (3).jpeg" alt="Memory" onclick="openModal(this)">
-            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول مقابلة لينا ✨</p>
-        </div>
-
-        <div class="memory-card">
-            <img src="images (5).jpeg" alt="Memory" onclick="openModal(this)">
-            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">يوم بجد تحفة 🌟</p>
-        </div>
-
-        <div class="memory-card">
-            <img src="images (6).jpeg" alt="Memory" onclick="openModal(this)">
-            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول مرة نتكلم 💬</p>
-        </div>
-
-        <div class="memory-card">
-            <img src="images (7).jpeg" alt="Memory" onclick="openModal(this)">
-            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">يوم ميتنسيش ❤️</p>
-        </div>
-
-        <div class="memory-card">
-            <img src="images (8).jpeg" alt="Memory" onclick="openModal(this)">
-            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">ذكرياتنا الحلوة مع بعض 📸</p>
-        </div>
-
-        <div class="memory-card">
-            <img src="images (9).jpeg" alt="Memory" onclick="openModal(this)">
-            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أحلى ضحكة وسعادة 🥰</p>
-        </div>
-
-        <div class="memory-card">
-            <img src="images.jpeg" alt="Memory" onclick="openModal(this)">
+            <div class="card-slideshow" onclick="openActiveModal(this)">
+                <img src="images (8).jpeg" class="active-slide" alt="Memory">
+                <img src="images (9).jpeg" alt="Memory">
+                <img src="images.jpeg" alt="Memory">
+            </div>
             <p style="margin-top: 15px; font-size: 18px; color: #ff416c; font-weight: bold;">ودايماً مكملين سوا لحد آخر العمر ❤️♾️</p>
         </div>
     </div>
@@ -599,12 +596,31 @@
             }, 1500);
         }
 
-        // دوال فتح وإغلاق الصورة بحجم كبير
-        function openModal(imgElement) {
-            const modal = document.getElementById('image-modal');
-            const modalImg = document.getElementById('modal-img');
-            modal.style.display = 'flex';
-            modalImg.src = imgElement.src;
+        // تشغيل السلايدشو التلقائي لكل كارت صور في الموقع
+        document.addEventListener("DOMContentLoaded", function() {
+            const slideshows = document.querySelectorAll('.card-slideshow');
+            slideshows.forEach(slideshow => {
+                const images = slideshow.querySelectorAll('img');
+                if(images.length > 1) {
+                    let currentIndex = 0;
+                    setInterval(() => {
+                        images[currentIndex].classList.remove('active-slide');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        images[currentIndex].classList.add('active-slide');
+                    }, 3500); // بتغير الصورة كل 3.5 ثانية
+                }
+            });
+        });
+
+        // فتح الصورة الظاهرة حالياً في السلايدشو بحجم كبير لما المستخدم يدوس عليها
+        function openActiveModal(slideshowElement) {
+            const activeImg = slideshowElement.querySelector('img.active-slide');
+            if(activeImg) {
+                const modal = document.getElementById('image-modal');
+                const modalImg = document.getElementById('modal-img');
+                modal.style.display = 'flex';
+                modalImg.src = activeImg.src;
+            }
         }
 
         function closeModal() {
