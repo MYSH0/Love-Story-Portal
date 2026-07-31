@@ -273,19 +273,6 @@
     </div>
 </div>
     <script>
-        // مصفوفة الصور لكل ذكرياتكم الجميلة
-const bgImages = [
-    'images (4).jpeg',
-    'images (1).jpeg',
-    'images (2).jpeg',
-    'images (3).jpeg',
-    'images (5).jpeg',
-    'images (6).jpeg',
-    'images (7).jpeg',
-    'images (8).jpeg',
-    'images (9).jpeg',
-    'images.jpeg'
-];
         function checkPass() {
     var pass = document.getElementById('passcode').value;
     if(pass === "2024") {
@@ -375,28 +362,6 @@ canvas.addEventListener('touchmove', (e) => {
     scratch(e);
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
- // متغير لتتبع الصورة الحالية
-// متغير لتتبع الصورة الحالية
-let currentBgIndex = 0;
-
-// دالة لتغيير الخلفية داخل صفحة الذكريات فقط
-function changeBackground() {
-    currentBgIndex = (currentBgIndex + 1) % bgImages.length;
-    
-    // استهداف صفحة الذكريات المخفية حصرياً
-    const memoriesSection = document.getElementById('memories-section');
-    
-    if (memoriesSection) {
-        const imageUrl = bgImages[currentBgIndex];
-        memoriesSection.style.backgroundImage = `url('${imageUrl}')`;
-        memoriesSection.style.backgroundSize = 'cover';
-        memoriesSection.style.backgroundPosition = 'center';
-        memoriesSection.style.backgroundRepeat = 'no-repeat';
-    }
-}
-
-// تشغيل التغيير التلقائي كل 4 ثوانٍ
-setInterval(changeBackground, 4000);
- </script>
+    </script>
 </body>
 </html>
