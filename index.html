@@ -279,11 +279,6 @@
     <div class="memories-content">
         <h1>❤️ أهلاً بكي يا أجمل أقداري ❤️</h1>
         
-        <h1 class="romantic-title">
-    <span class="heart-icon">❤️</span> 
-    ذكرياتنا الجميلة 
-    <span class="heart-icon">❤️</span>
-</h1>
         <!-- صندوق الكارت الخربوش الجديد -->
         <div class="scratch-card-container">
             <!-- طبقة الكلام المستخبي (تحت) -->
@@ -387,57 +382,5 @@ canvas.addEventListener('touchmove', (e) => {
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
     </script>
-    <!-- قسم النهاية والرسالة السرية -->
-        <div class="final-section">
-            <p class="secret-hint">في حاجة مهمة عايز أقولهالك...</p>
-            <button class="reveal-btn" onclick="showSecretMessage()">دوس هنا ❤️</button>
-        </div>
-
-        <!-- صندوق الرسالة الكبرى المخفية -->
-        <div id="secretMessageOverlay" class="secret-overlay">
-            <div class="secret-content-box">
-                <button class="close-overlay" onclick="hideSecretMessage()">✕</button>
-                <div class="slideshow-msg-container" id="slideshowText">
-                    <p class="active-msg">أنتِ نور حياتي وسر سعادتي ✨</p>
-                </div>
-            </div>
-        </div>
-        <script>
-    // حط الكود هنا يا فنان
-    const messages = [
-        "أنتِ نور حياتي وسر سعادتي ✨",
-        "كل لحظة معاكي تساوي الدنيا ❤️",
-        "حبك فى قلبي مكانه ميتشالش 🌹",
-        "أنتِ اجمل حاجة حصلتلي فى الحياة بين كل الناس 💫",
-        "وحشتيني.. حتى لو أنتِ قدامي الآن 🥰"
-    ];
-
-    let currentMsgIndex = 0;
-    let msgInterval;
-
-    function showSecretMessage() {
-        const overlay = document.getElementById("secretMessageOverlay");
-        overlay.classList.add("show");
-        currentMsgIndex = 0;
-        displayMessage();
-        msgInterval = setInterval(nextMessage, 4000);
-    }
-
-    function hideSecretMessage() {
-        const overlay = document.getElementById("secretMessageOverlay");
-        overlay.classList.remove("show");
-        clearInterval(msgInterval);
-    }
-
-    function displayMessage() {
-        const container = document.getElementById("slideshowText");
-        container.innerHTML = `<p class="active-msg">${messages[currentMsgIndex]}</p>`;
-    }
-
-    function nextMessage() {
-        currentMsgIndex = (currentMsgIndex + 1) % messages.length;
-        displayMessage();
-    }
-</script>
 </body>
 </html>
