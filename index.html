@@ -406,11 +406,17 @@ canvas.addEventListener('touchmove', (e) => {
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
    function startJourneyAction() {
-    // إخفاء كارت الخربشة
-    document.querySelector('.memories-content').style.display = 'none';
+    // إخفاء كارت الخربشة تماماً
+    var scratchCard = document.querySelector('.memories-content');
+    if (scratchCard) {
+        scratchCard.style.display = 'none';
+    }
     
-    // إظهار قسم رحلة الذكريات
-    document.getElementById('memories-section').style.display = 'block';
+    // إظهار قسم رحلة الذكريات اللي جواه الصور
+    var memoriesSection = document.getElementById('memories-section');
+    if (memoriesSection) {
+        memoriesSection.style.display = 'block';
+    }
 }
    </script>
    <!-- قسم رحلة الذكريات -->
