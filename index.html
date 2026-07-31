@@ -511,19 +511,18 @@ function displayNextMessage() {
     const textContainer = document.getElementById('sliding-text');
     if (!textContainer) return;
 
-    // تغيير النص وتثبيته وظهوره ببطء
-    textContainer.style.opacity = 0;
-    setTimeout(() => {
-        textContainer.innerHTML = loveMessages[currentIndex];
-        textContainer.style.opacity = 1;
-    }, 500);
-
-    // الانتقال للجملة اللي بعدها كل 4 ثواني
-    currentIndex++;
+    // لو الـ currentIndex لسه جوه حدود المصفوفة، اعرض الجملة
     if (currentIndex < loveMessages.length) {
-        setTimeout(displayNextMessage, 4000);
+        textContainer.style.opacity = 0;
+        setTimeout(() => {
+            textContainer.innerHTML = loveMessages[currentIndex];
+            textContainer.style.opacity = 1;
+        }, 500);
+
+        currentIndex++;
+        setTimeout(displayNextMessage, 4000); // الانتقال للجملة اللي بعدها كل 4 ثواني
     } else {
-        // بعد ما تخلص آخر جملة، ممكن نعيدها أو نخليها تفضل ظاهرة
+        // لو الجمل خلصت، ممكن نخليها تعيد من الأول لوحدها بهدوء
         setTimeout(() => {
             currentIndex = 0;
             displayNextMessage();
