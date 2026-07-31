@@ -90,7 +90,6 @@
             margin: auto;
             position: relative;
             z-index: 3;
-            transition: opacity 0.8s ease-in-out;
         }
 
         .login-card h2 {
@@ -163,14 +162,6 @@
             margin: auto;
             position: relative;
             z-index: 3;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-        }
-
-        #scratch-section.active {
-            opacity: 1;
-            transform: scale(1);
         }
 
         .scratch-card-container {
@@ -232,7 +223,7 @@
             touch-action: none;
         }
 
-        /* قسم الذكريات والبوكسات اللي تحت بعض */
+        /* قسم رحلة الذكريات (يظهر بعد زرار ابدأ الرحلة) */
         #memories-section {
             display: none;
             width: 100%;
@@ -280,7 +271,7 @@
             box-shadow: 0 12px 30px rgba(255, 65, 108, 0.8);
         }
 
-        /* طبقة الانتقال السحري الرومانسية عند البداية */
+        /* طبقة الانتقال السحري الرومانسية عند الضغط على Start Journey */
         #romantic-transition-overlay {
             position: fixed;
             top: 0;
@@ -304,7 +295,9 @@
 
         #romantic-transition-overlay h1 {
             color: #fff;
-            font-size: 45px;
+            font-size: 40px;
+            text-align: center;
+            padding: 0 20px;
             text-shadow: 0 0 20px rgba(255,255,255,0.8);
             transform: scale(0.8);
             transition: transform 1s ease-in-out;
@@ -439,9 +432,7 @@
         function checkPass() {
             var pass = document.getElementById('passcode').value;
             if(pass === "2024") {
-                // تأثير الانتقال الرومانسي السحري عند كلمة السر الصح
-                const overlay = document.getElementById('romantic-transition-overlay');
-                overlay.classList.add('active');
+                alert("منور يا حبيبي ، عرفت كلمه السر!");
                 
                 confetti({
                     particleCount: 150,
@@ -449,19 +440,11 @@
                     origin: { y: 0.6 }
                 });
 
-                setTimeout(() => {
-                    document.getElementById('loginCard').style.display = 'none';
-                    const scratchSec = document.getElementById('scratch-section');
-                    scratchSec.style.display = 'flex';
-                    
-                    setTimeout(() => {
-                        scratchSec.classList.add('active');
-                        overlay.classList.remove('active');
-                    }, 50);
-
-                    initScratchCard();
-                }, 1200);
-
+                // إخفاء صندوق كلمة السر وإظهار كارت الخربشة مباشرة وبكل سهولة
+                document.getElementById('loginCard').style.display = 'none';
+                document.getElementById('scratch-section').style.display = 'flex';
+                
+                initScratchCard();
             } else {
                 document.getElementById('error').style.display = "block";
             }
@@ -527,19 +510,31 @@
         });
         canvas.addEventListener('touchend', () => isDrawing = false);
 
+        // هنا السحر بيحصل لما تدوس على زرار Start Journey ❤️
         function startJourneyAction() {
-            var scratchSection = document.getElementById('scratch-section');
-            if (scratchSection) {
-                scratchSection.style.display = 'none';
-            }
-            
-            var memoriesSection = document.getElementById('memories-section');
-            if (memoriesSection) {
-                memoriesSection.style.display = 'block';
-                document.getElementById('final-message-box').style.display = 'block';
-            }
+            const overlay = document.getElementById('romantic-transition-overlay');
+            overlay.classList.add('active'); // إظهار الشاشة الرومانسية السحرية
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                var scratchSection = document.getElementById('scratch-section');
+                if (scratchSection) {
+                    scratchSection.style.display = 'none';
+                }
+                
+                var memoriesSection = document.getElementById('memories-section');
+                if (memoriesSection) {
+                    memoriesSection.style.display = 'block';
+                    document.getElementById('final-message-box').style.display = 'block';
+                }
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // إخفاء الشاشة السحرية بهدوء عشان تفتح صفحة الذكريات
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                }, 500);
+
+            }, 1500); // مدة ظهور العبارة الرومانسية (ثانية ونص)
         }
 
         const loveMessages = [
