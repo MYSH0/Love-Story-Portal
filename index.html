@@ -193,9 +193,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* مؤشر ماوس على شكل قلب */
     cursor: url('https://cdn-icons-png.flaticon.com/32/833/833472.png') 16 16, auto;
-    z-index: 2;
+    z-index: 10; /* خليناه 10 عشان يضمن إنه فوق الكلام تماماً وما يختفيش */
     touch-action: none;
 }
         /* شاشة الذكريات اللي هتفتح بشكل احترافي */
@@ -282,14 +281,16 @@
         
         <!-- صندوق الكارت الخربوش الجديد -->
         <div class="scratch-card-container">
-           <!-- طبقة الكلام المستخبي (هتكون تحت الكانفاس) -->
-            <<!-- طبقة الكلام المستخبي (هتكون تحت الكانفاس) -->
+            <!-- طبقة الكلام المستخبي (تحت) -->
             <div class="hidden-text" id="hiddenMessage">
                 <div class="message-box">
                     <p class="main-msg">✨ احلى واغلي شخص فى حياتي وكل يوم بيعدي بيزيد حبي ليكي أكتر وأكتر، أنت سبب سعادتي ✨</p>
                     <p class="sub-msg">تعالي نشوف كام حاجة حلوة كده مع بعض ❤️</p>
                 </div>
             </div>
+            <!-- طبقة الخربشة (فوق الكلام بـ z-index عالي) -->
+            <canvas id="scratchCanvas"></canvas>
+        </div>
     <script>
         function checkPass() {
     var pass = document.getElementById('passcode').value;
