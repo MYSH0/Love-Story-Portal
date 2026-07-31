@@ -15,9 +15,15 @@
 
         body, html {
             width: 100%;
-            min-height: 100vh;
+            height: 100vh;
             overflow-x: hidden;
-            background-color: #111;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
         }
 
         body {
@@ -28,13 +34,13 @@
         }
 
         /* خلفية الصور المتحركة الرومانسية */
-        .bg-slideshow {
+       .bg-slideshow {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
         }
 
         .bg-slideshow img {
@@ -64,10 +70,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: rgba(0, 0, 0, 0.45);
-            z-index: -1;
         }
 
         /* صندوق إدخال الرقم السري الأنيق */
@@ -259,6 +264,12 @@
             transform: scale(1.08);
             box-shadow: 0 12px 30px rgba(255, 65, 108, 0.8);
         }
+        /* التأكد من أن صناديق المحتوى فوق الخلفية بمسافة آمنة */
+        .login-card, #scratch-section, #memories-section {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
     </style>
 </head>
 <body>
