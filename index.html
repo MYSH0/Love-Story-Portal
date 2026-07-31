@@ -269,7 +269,7 @@
             opacity: 1;
         }
 
-        /* حاوية الفيديو داخل الكارت (يعمل تلقائياً وبدون صوت) */
+        /* حاوية الفيديو داخل الكارت */
         .card-video-container {
             position: relative;
             width: 100%;
@@ -474,7 +474,7 @@
             <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول خروجة لينا مع بعض ☕</p>
         </div>
 
-        <!-- كارت الفيديو الجديد (يعمل تلقائياً وبدون صوت لعدم تداخل الأغنية) -->
+        <!-- كارت الفيديو الجديد -->
         <div class="memory-card">
             <div class="card-video-container">
                 <video autoplay muted loop playsinline>
@@ -542,10 +542,9 @@
             if(pass === "2024") {
                 alert("منور يا حبيبي ، عرفت كلمه السر!");
                 
-                // تشغيل الأغنية من الثانية 34 أول ما الباسورد يبقى صح
                 var song = document.getElementById('love-song');
                 if(song) {
-                    song.currentTime = 34; // تحديد نقطة البداية عند الثانية 34
+                    song.currentTime = 34;
                     song.play().catch(error => {
                         console.log("Auto-play prevented by browser:", error);
                     });
@@ -708,7 +707,6 @@
         }
 
         function displayNextMessage() {
-خص
             const textContainer = document.getElementById('sliding-text');
             if (!textContainer) return;
 
