@@ -406,8 +406,68 @@ canvas.addEventListener('touchmove', (e) => {
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
    function startJourneyAction() {
-            alert("جاهزة للرحلة؟ يلا بينا نكمل باقي الذكريات ❤️");
-        }
+    // إخفاء كارت الخربشة
+    document.querySelector('.memories-content').style.display = 'none';
+    
+    // إظهار قسم رحلة الذكريات
+    document.getElementById('memories-section').style.display = 'block';
+}
    </script>
+   <!-- قسم رحلة الذكريات -->
+    <div id="memories-section" style="display: none; text-align: center; padding: 40px 20px;">
+        <h2 style="color: #ff416c; margin-bottom: 30px; font-size: 32px;">رحلة ذكرياتنا ❤️</h2>
+        <!-- صورة 1 -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images (1).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">الأغنية اللي بتفكرنا بأحلى أوقاتنا 🎶</p>
+            </div>
+
+            <!-- صورة 2 -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images (2).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول خروجة سوا ☕</p>
+            </div>
+
+            <!-- صورة 3 -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images (3).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول مقابلة لينا ✨</p>
+            </div>
+
+            <!-- صورة 5 -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images (5).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">يوم بجد تحفة 🌟</p>
+            </div>
+
+            <!-- صورة 6 -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images (6).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول مرة نتكلم 💬</p>
+            </div>
+
+            <!-- صورة 7 -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images (7).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">يوم ميتنسيش ❤️</p>
+            </div>
+
+            <!-- صورة 8 -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images (8).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">ذكرياتنا الحلوة مع بعض 📸</p>
+            </div>
+
+            <!-- صورة 9 -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images (9).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أحلى ضحكة وسعادة 🥰</p>
+            </div>
+
+            <!-- الصورة الأخيرة -->
+            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="images.jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
+                <p style="margin-top: 15px; font-size: 18px; color: #ff416c; font-weight: bold;">ودايماً مكملين سوا لحد آخر العمر ❤️♾️</p>
+            </div>
 </body>
 </html>
