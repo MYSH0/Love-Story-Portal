@@ -273,6 +273,19 @@
     </div>
 </div>
     <script>
+        // مصفوفة الصور لكل ذكرياتكم الجميلة
+const bgImages = [
+    'images (4).jpeg',
+    'images (1).jpeg',
+    'images (2).jpeg',
+    'images (3).jpeg',
+    'images (5).jpeg',
+    'images (6).jpeg',
+    'images (7).jpeg',
+    'images (8).jpeg',
+    'images (9).jpeg',
+    'images.jpeg'
+];
         function checkPass() {
     var pass = document.getElementById('passcode').value;
     if(pass === "2024") {
@@ -362,6 +375,19 @@ canvas.addEventListener('touchmove', (e) => {
     scratch(e);
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
-    </script>
+ // متغير لتتبع الصورة الحالية
+let currentBgIndex = 0;
+
+// دالة لتغيير الخلفية كل 4 ثوانٍ
+function changeBackground() {
+    currentBgIndex = (currentBgIndex + 1) % bgImages.length;
+    // التأكد من العنصر الحامل للخلفية وتغييرها
+    const bgElement = document.querySelector('.bg-slideshow') || document.body;
+    bgElement.style.backgroundImage = `url('${bgImages[currentBgIndex]}')`;
+}
+
+// تشغيل الدالة كل 4 ثوانٍ باستمرار
+setInterval(changeBackground, 4000);
+ </script>
 </body>
 </html>
