@@ -15,21 +15,26 @@
 
         body, html {
             width: 100%;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #111;
+        }
+
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
         /* خلفية الصور المتحركة الرومانسية */
         .bg-slideshow {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
         }
 
         .bg-slideshow img {
@@ -43,7 +48,6 @@
             animation: fadeInOut 18s infinite;
         }
 
-        /* توقيتات صور الخلفية المتحركة */
         .bg-slideshow img:nth-child(1) { animation-delay: 0s; }
         .bg-slideshow img:nth-child(2) { animation-delay: 6s; }
         .bg-slideshow img:nth-child(3) { animation-delay: 12s; }
@@ -56,9 +60,8 @@
             100% { opacity: 0; transform: scale(1); }
         }
 
-        /* طبقة عتمة شفافة فوق الصور عشان الكلام يبدو واضح ومرتب */
         .overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -80,6 +83,7 @@
             max-width: 400px;
             width: 90%;
             color: #fff;
+            margin: auto;
         }
 
         .login-card h2 {
@@ -139,121 +143,103 @@
             display: none;
             text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
+
+        /* قسم الكارت الخربوش */
+        #scratch-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
         .scratch-card-container {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    height: 250px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    background-color: #f0f0f0; /* لون خلفية احتياطي */
-}
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background-color: #f0f0f0;
+        }
 
-.hidden-text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
-    box-sizing: border-box;
-    text-align: center;
-    background: linear-gradient(135deg, #fff0f3, #ffe3e8); /* خلفية تدرج وردي ناعم وفخم */
-    z-index: 1;
-    border-radius: 15px;
-}
+        .hidden-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            box-sizing: border-box;
+            text-align: center;
+            background: linear-gradient(135deg, #fff0f3, #ffe3e8);
+            z-index: 1;
+            border-radius: 15px;
+        }
 
-.message-box {
-    display: flex;
-    flex-direction: column;
-    gap: 12px; /* مسافة مرتبة بين الجملتين */
-}
+        .message-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-.main-msg {
-    color: #b83280; /* لون وردي دافئ وجميل للجملة الأولى */
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.5;
-}
+        .main-msg {
+            color: #b83280;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
 
-.sub-msg {
-    color: #8b0000; /* لون أحمر غامق وبارز للجملة التانية */
-    font-size: 17px;
-    font-weight: bold;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
+        .sub-msg {
+            color: #8b0000;
+            font-size: 17px;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
 
-#scratchCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: url('https://cdn-icons-png.flaticon.com/32/833/833472.png') 16 16, auto;
-    z-index: 10; /* خليناه 10 عشان يضمن إنه فوق الكلام تماماً وما يختفيش */
-    touch-action: none;
-}
-        /* شاشة الذكريات اللي هتفتح بشكل احترافي */
-#memories-section {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    /* خلي الصورة هي الخلفية بدل اللون الموف، مع تدرج خفيف فوقها عشان الكلام يبان واضح */
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images (4).jpeg');
-    background-size: cover;
-    background-position: center;
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: white;
-    text-align: center;
-    opacity: 0;
-    pointer-events: none;
-    clip-path: circle(0% at 50% 50%);
-    transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s ease;
-}
+        #scratchCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: url('https://cdn-icons-png.flaticon.com/32/833/833472.png') 16 16, auto;
+            z-index: 10;
+            touch-action: none;
+        }
 
-#memories-section.active {
-    opacity: 1;
-    pointer-events: auto;
-    clip-path: circle(150% at 50% 50%);
-}
-.memories-content {
-    max-width: 600px;
-    padding: 20px;
-    animation: floatCard 3s ease-in-out infinite;
-}
+        /* قسم الذكريات والبوكسات اللي تحت بعض */
+        #memories-section {
+            display: none;
+            width: 100%;
+            max-width: 650px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: auto;
+        }
 
-.memories-content h1 {
-    font-size: 35px;
-    margin-bottom: 15px;
-    text-shadow: 0 3px 10px rgba(0,0,0,0.5);
-}
+        .memory-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+        }
 
-.memories-content p {
-    font-size: 18px;
-    line-height: 1.6;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
+        .memory-card img {
+            width: 100%;
+            border-radius: 10px;
+            max-height: 400px;
+            object-fit: cover;
+        }
 
-@keyframes floatCard {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-/* تنسيق زرار ابدأ الرحلة */
         .start-journey-btn {
             margin-top: 20px;
             background: linear-gradient(135deg, #ff416c, #ff4b2b);
@@ -286,7 +272,7 @@
     <div class="overlay"></div>
 
     <!-- صندوق الدخول -->
-    <div class="login-card">
+    <div class="login-card" id="loginCard">
         <h2>🔒 دخل الرقم الى قولتهولك هنا </h2>
         <div class="input-group">
             <input type="password" id="passcode" placeholder="مثال: تاريخ مميز أو تاريخ ميلاد">
@@ -294,186 +280,177 @@
         <button onclick="checkPass()">دخول الذكريات ❤️</button>
         <p id="error" class="error-msg">هزعل كده , الرقم غلط يحبيبي !</p>
     </div>
-    <!-- قسم الذكريات اللي هيفتح بعد الباسورد -->
-<div id="scratch-section"> <!-- خليناه active للتجربة -->
-    <div class="memories-content">
-        <h1>❤️ أهلاً بكي يا أجمل أقداري ❤️</h1>
-        
-        <!-- صندوق الكارت الخربوش الجديد -->
-        <div class="scratch-card-container">
-            <!-- طبقة الكلام المستخبي (تحت) -->
-            <div class="hidden-text" id="hiddenMessage">
-                <div class="message-box">
-                    <p class="main-msg">✨ احلى واغلي شخص فى حياتي وكل يوم بيعدي بيزيد حبي ليكي أكتر وأكتر، أنت سبب سعادتي ✨</p>
-                    <p class="sub-msg">تعالي نشوف كام حاجة حلوة كده مع بعض ❤️</p>
+
+    <!-- قسم الكارت الخربوش (يظهر بعد كلمة السر الصحيحة) -->
+    <div id="scratch-section">
+        <div class="memories-content" style="text-align: center; width: 100%;">
+            <h1 style="color: #fff; margin-bottom: 20px; text-shadow: 0 3px 10px rgba(0,0,0,0.5);">❤️ أهلاً بكي يا أجمل أقداري ❤️</h1>
+            
+            <div class="scratch-card-container">
+                <div class="hidden-text" id="hiddenMessage">
+                    <div class="message-box">
+                        <p class="main-msg">✨ احلى واغلي شخص فى حياتي وكل يوم بيعدي بيزيد حبي ليكي أكتر وأكتر، أنت سبب سعادتي ✨</p>
+                        <p class="sub-msg">تعالي نشوف كام حاجة حلوة كده مع بعض ❤️</p>
+                    </div>
                 </div>
+                <canvas id="scratchCanvas"></canvas>
             </div>
-            <!-- طبقة الخربشة (فوق الكلام بـ z-index عالي) -->
-            <canvas id="scratchCanvas"></canvas>
+            
+            <button class="start-journey-btn" onclick="startJourneyAction()">
+                Start Journey ❤️✨
+            </button>
         </div>
-        <!-- زرار ابدأ الرحلة -->
-    <button class="start-journey-btn" onclick="startJourneyAction()">
-        Start Journey ❤️✨
-    </button>
+    </div>
+
+    <!-- قسم رحلة الذكريات (يظهر بعد زرار ابدأ الرحلة) -->
+    <div id="memories-section">
+        <h2 style="color: #ff416c; margin-bottom: 30px; font-size: 32px; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">رحلة ذكرياتنا ❤️</h2>
+        
+        <div class="memory-card">
+            <img src="images (1).jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">الأغنية اللي بتفكرنا بأحلى أوقاتنا 🎶</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="images (2).jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول خروجة سوا ☕</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="images (3).jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول مقابلة لينا ✨</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="images (5).jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">يوم بجد تحفة 🌟</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="images (6).jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول مرة نتكلم 💬</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="images (7).jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">يوم ميتنسيش ❤️</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="images (8).jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">ذكرياتنا الحلوة مع بعض 📸</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="images (9).jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أحلى ضحكة وسعادة 🥰</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="images.jpeg" alt="Memory">
+            <p style="margin-top: 15px; font-size: 18px; color: #ff416c; font-weight: bold;">ودايماً مكملين سوا لحد آخر العمر ❤️♾️</p>
+        </div>
+    </div>
+
     <script>
         function checkPass() {
-    var pass = document.getElementById('passcode').value;
-    if(pass === "2024") {
-        alert("منور يا حبيبي ، عرفت كلمه السر!");
-        
-        // --- كود فرقعة الزينة يضاف هنا ---
-        confetti({
-            particleCount: 150,
-            spread: 80,
-            origin: { y: 0.6 }
-        });
-        // --------------------------------
+            var pass = document.getElementById('passcode').value;
+            if(pass === "2024") {
+                alert("منور يا حبيبي ، عرفت كلمه السر!");
+                
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
 
-        document.getElementById('memories-section').classList.add('active');
-    } else {
-        document.getElementById('error').style.display = "block";
-    }
-}
-        // كود الخربشة يضاف هنا جوه نفس الـ script
+                // إخفاء صندوق كلمة السر وإظهار كارت الخربشة
+                document.getElementById('loginCard').style.display = 'none';
+                document.getElementById('scratch-section').style.display = 'flex';
+                
+                // تهيئة الكانفاس بعد ظهوره لضمان حساب أبعاده صح
+                setTimeout(initScratchCard, 100);
+            } else {
+                document.getElementById('error').style.display = "block";
+            }
+        }
+
         const canvas = document.getElementById('scratchCanvas');
-const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
 
-// دالة لتهيئة طبقة الخدش
-function initScratchCard() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    
-    // لون طبقة الخدش (الرمادي المعدني)
-    ctx.fillStyle = '#888888'; 
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // كتابة نص ارشادي فوق الطبقة الرمادية
-    ctx.font = 'bold 20px Cairo, sans-serif';
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('✨     يا حبيبي خربش هنا   ✨', canvas.width / 2, canvas.height / 2);
-}
+        function initScratchCard() {
+            if(!canvas) return;
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            ctx.fillStyle = '#888888'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.font = 'bold 20px Cairo, sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('✨     يا حبيبي خربش هنا   ✨', canvas.width / 2, canvas.height / 2);
+        }
 
-// تشغيل الدالة لما الصفحة تحمل
-setTimeout(initScratchCard, 200);
+        let isDrawing = false;
 
-let isDrawing = false;
+        function scratch(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            if(clientX === undefined || clientY === undefined) return;
+            
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+            
+            ctx.globalCompositeOperation = 'destination-out';
+            
+            const heartPath = new Path2D();
+            const size = 45; 
+            heartPath.moveTo(x, y);
+            heartPath.bezierCurveTo(x, y - size / 2, x + size, y - size, x + size, y + size / 3);
+            heartPath.bezierCurveTo(x + size, y + size, x, y + size * 1.5, x, y + size * 1.8);
+            heartPath.bezierCurveTo(x, y + size * 1.5, x - size, y + size, x - size, y + size / 3);
+            heartPath.bezierCurveTo(x - size, y - size, x, y - size / 2, x, y);
+            heartPath.closePath();
+            
+            ctx.fill(heartPath);
+        }
 
-// دالة المسح (الخدش)
-function scratch(e) {
-    if (!isDrawing) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.clientX || e.touches[0].clientX) - rect.left;
-    const y = (e.clientY || e.touches[0].clientY) - rect.top;
-    
-    ctx.globalCompositeOperation = 'destination-out';
-    
-    // --- هنا التعديل: إنشاء مسار قلب بدل الدايرة ---
-    const heartPath = new Path2D();
-    // حجم القلب (ممكن تعديله بتغيير الأرقام هنا، ده مناسب لفرشاة)
-    const size = 45; 
-    heartPath.moveTo(x, y);
-    heartPath.bezierCurveTo(x, y - size / 2, x + size, y - size, x + size, y + size / 3);
-    heartPath.bezierCurveTo(x + size, y + size, x, y + size * 1.5, x, y + size * 1.8);
-    heartPath.bezierCurveTo(x, y + size * 1.5, x - size, y + size, x - size, y + size / 3);
-    heartPath.bezierCurveTo(x - size, y - size, x, y - size / 2, x, y);
-    heartPath.closePath();
-    
-    // رسم القلب (بدلاً من fill())
-    ctx.fill(heartPath);
-    // --- نهاية التعديل ---
-}
+        canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+        canvas.addEventListener('mousemove', scratch);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseleave', () => isDrawing = false);
 
-// إعداد أحداث الماوس
-canvas.addEventListener('mousedown', (e) => {
-    isDrawing = true;
-    scratch(e); // عشان يبدأ يمسح من أول ضغطة
-});
-canvas.addEventListener('mousemove', scratch);
-canvas.addEventListener('mouseup', () => isDrawing = false);
-canvas.addEventListener('mouseleave', () => isDrawing = false); // لو الماوس خرج برا الكانفاس
+        canvas.addEventListener('touchstart', (e) => {
+            isDrawing = true;
+            e.preventDefault();
+            scratch(e);
+        });
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            scratch(e);
+        });
+        canvas.addEventListener('touchend', () => isDrawing = false);
 
-// إعداد أحداث اللمس (للموبايل)
-canvas.addEventListener('touchstart', (e) => {
-    isDrawing = true;
-    e.preventDefault(); // منع التمرير بالغلط
-    scratch(e);
-});
-canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    scratch(e);
-});
-canvas.addEventListener('touchend', () => isDrawing = false);
-   function startJourneyAction() {
-    // إخفاء كارت الخربشة بالكامل
-    var scratchSection = document.getElementById('scratch-section');
-    if (scratchSection) {
-        scratchSection.style.display = 'none';
-    }
-    
-    // إظهار قسم الذكريات وتغيير الـ display لـ block غصب عن أي حاجة
-    var memoriesSection = document.getElementById('memories-section');
-    if (memoriesSection) {
-        memoriesSection.style.display = 'block';
-    }
-}
+        function startJourneyAction() {
+            // إخفاء كارت الخربشة بالكامل
+            var scratchSection = document.getElementById('scratch-section');
+            if (scratchSection) {
+                scratchSection.style.display = 'none';
+            }
+            
+            // إظهار قسم الذكريات تحت بعضه
+            var memoriesSection = document.getElementById('memories-section');
+            if (memoriesSection) {
+                memoriesSection.style.display = 'block';
+            }
+            
+            // صعد لأول الصفحة عشان تتفرج على الصور بمرتاح
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
    </script>
-   <!-- قسم رحلة الذكريات -->
-    <div id="memories-section" style="text-align: center; padding: 40px 20px;">
-        <h2 style="color: #ff416c; margin-bottom: 30px; font-size: 32px;">رحلة ذكرياتنا ❤️</h2>
-        <!-- صورة 1 -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images (1).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">الأغنية اللي بتفكرنا بأحلى أوقاتنا 🎶</p>
-            </div>
-
-            <!-- صورة 2 -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images (2).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول خروجة سوا ☕</p>
-            </div>
-
-            <!-- صورة 3 -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images (3).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول مقابلة لينا ✨</p>
-            </div>
-
-            <!-- صورة 5 -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images (5).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">يوم بجد تحفة 🌟</p>
-            </div>
-
-            <!-- صورة 6 -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images (6).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول مرة نتكلم 💬</p>
-            </div>
-
-            <!-- صورة 7 -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images (7).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">يوم ميتنسيش ❤️</p>
-            </div>
-
-            <!-- صورة 8 -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images (8).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">ذكرياتنا الحلوة مع بعض 📸</p>
-            </div>
-
-            <!-- صورة 9 -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images (9).jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أحلى ضحكة وسعادة 🥰</p>
-            </div>
-
-            <!-- الصورة الأخيرة -->
-            <div class="memory-card" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <img src="images.jpeg" alt="Memory" style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover;">
-                <p style="margin-top: 15px; font-size: 18px; color: #ff416c; font-weight: bold;">ودايماً مكملين سوا لحد آخر العمر ❤️♾️</p>
-            </div>
 </body>
 </html>
