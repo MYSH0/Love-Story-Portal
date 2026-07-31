@@ -511,23 +511,25 @@ function displayNextMessage() {
     const textContainer = document.getElementById('sliding-text');
     if (!textContainer) return;
 
-    // لو الـ currentIndex لسه جوه حدود المصفوفة، اعرض الجملة
-    if (currentIndex < loveMessages.length) {
-        textContainer.style.opacity = 0;
-        setTimeout(() => {
+    // لو وصلنا لنهاية الجمل، نرجع نبدأ من الأول بهدوء
+    if (currentIndex >= loveMessages.length) {
+        currentIndex = 0;
+    }
+
+    // إخفاء النص الحالي تدريجياً
+    textContainer.style.opacity = 0;
+    
+    setTimeout(() => {
+        // كتابة الجملة الحالية بالتاكيد من وجودها
+        if (loveMessages[currentIndex]) {
             textContainer.innerHTML = loveMessages[currentIndex];
             textContainer.style.opacity = 1;
-        }, 500);
-
+        }
         currentIndex++;
-        setTimeout(displayNextMessage, 4000); // الانتقال للجملة اللي بعدها كل 4 ثواني
-    } else {
-        // لو الجمل خلصت، ممكن نخليها تعيد من الأول لوحدها بهدوء
-        setTimeout(() => {
-            currentIndex = 0;
-            displayNextMessage();
-        }, 4000);
-    }
+    }, 500);
+
+    // تكرار الدالة كل 4 ثواني بشكل آمن ومظبوط
+    setTimeout(displayNextMessage, 4000);
 }
   </script>
 </body>
