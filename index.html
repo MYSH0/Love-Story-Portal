@@ -269,7 +269,7 @@
             opacity: 1;
         }
 
-        /* حاوية الفيديو داخل الكارت */
+        /* حاوية الفيديو داخل الكارت (يعمل تلقائياً وبدون صوت) */
         .card-video-container {
             position: relative;
             width: 100%;
@@ -399,7 +399,7 @@
 </head>
 <body>
 
-    <!-- مشغل الأغنية (تبدأ من الثانية 34 مباشرة وتتكرر تلقائياً) -->
+    <!-- مشغل الأغنية الأساسية -->
     <audio id="love-song" src="Song.mp3" preload="auto" loop></audio>
 
     <!-- خلفية الصور الرومانسية المتحركة -->
@@ -474,10 +474,10 @@
             <p style="margin-top: 15px; font-size: 18px; color: #333; font-weight: bold;">أول خروجة لينا مع بعض ☕</p>
         </div>
 
-        <!-- كارت الفيديو الجديد (video1.mp4) -->
+        <!-- كارت الفيديو الجديد (يعمل تلقائياً وبدون صوت لعدم تداخل الأغنية) -->
         <div class="memory-card">
             <div class="card-video-container">
-                <video controls preload="metadata">
+                <video autoplay muted loop playsinline>
                     <source src="video1.mp4" type="video/mp4">
                     متصفحك لا يدعم عرض الفيديو.
                 </video>
@@ -568,7 +568,6 @@
 
         const canvas = document.getElementById('scratchCanvas');
 
-        // تم ضبط الكانفاس بطريقة آمنة
         function initScratchCard() {
             if(!canvas) return;
             const cText = canvas.getContext('2d');
@@ -655,7 +654,6 @@
             }, 1500);
         }
 
-        // تشغيل السلايدشو التلقائي لكل كارت صور في الموقع
         document.addEventListener("DOMContentLoaded", function() {
             const slideshows = document.querySelectorAll('.card-slideshow');
             slideshows.forEach(slideshow => {
@@ -671,7 +669,6 @@
             });
         });
 
-        // فتح الصورة الظاهرة حالياً في السلايدشو بحجم كبير لما المستخدم يدوس عليها
         function openActiveModal(slideshowElement) {
             const activeImg = slideshowElement.querySelector('img.active-slide');
             if(activeImg) {
@@ -711,6 +708,7 @@
         }
 
         function displayNextMessage() {
+خص
             const textContainer = document.getElementById('sliding-text');
             if (!textContainer) return;
 
@@ -736,4 +734,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
