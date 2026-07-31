@@ -353,6 +353,7 @@
             height: 100vh;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -394,6 +395,52 @@
         .close-modal:hover {
             background: #ff416c;
             transform: rotate(90deg);
+        }
+
+        /* تحسينات الصفحة الأخيرة للأيفون ومنع تداخل النصوص */
+        #love-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        #sliding-text-container {
+            width: 90%;
+            max-width: 600px;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        #sliding-text {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        #sliding-text.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -514,7 +561,7 @@
     </div>
 
     <!-- رسالة الختام والزرار الأخير -->
-    <div id="final-message-box" style="display: none; margin: 40px auto; text-align: center; padding: 30px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; backdrop-filter: blur(5px); width: 90%; max-width: 600px; position: relative; z-index: 3;">
+    <div id="final-message-box" style="display: none; margin: 40px auto; text-align: center; padding: 30px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); width: 90%; max-width: 600px; position: relative; z-index: 3;">
         <p style="color: #ffffff; font-size: 24px; font-weight: bold; margin-bottom: 20px; text-shadow: 0 2px 8px rgba(0,0,0,0.8);">
             فى حاجه مهمه عايز اقولهالك 💌
         </p>
@@ -524,11 +571,11 @@
     </div>
 
     <!-- الصفحة الرابعة الجديدة (المخفية في البداية) -->
-    <div id="love-page" style="display: none; min-height: 100vh; width: 100%; position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-        <h1 style="color: #ff416c; font-size: 60px; font-weight: bold; margin-bottom: 30px; text-shadow: 0 0 20px rgba(255,65,108,0.6);">بحبك ❤️</h1>
+    <div id="love-page">
+        <h1 style="color: #ff416c; font-size: 50px; font-weight: bold; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255,65,108,0.6);">بحبك ❤️</h1>
         
-        <div id="sliding-text" style="color: #ffffff; font-size: 24px; font-weight: bold; min-height: 80px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); line-height: 1.6; transition: opacity 1s ease-in-out; opacity: 0;">
-            <!-- الجمل هتظهر هنا واحدة ورا التانية -->
+        <div id="sliding-text-container">
+            <div id="sliding-text"></div>
         </div>
 
         <button onclick="goBackToHome()" style="margin-top: 40px; background: transparent; border: 2px solid rgba(255, 255, 255, 0.4); color: white; padding: 10px 25px; font-size: 16px; border-radius: 30px; cursor: pointer; transition: 0.3s;">
@@ -691,7 +738,8 @@
             "عمري ما هبطل احبك أبداً لآخر العمر 🥰"
         ];
 
-        let currentIndex = 0;
+        let msgIndex = 0;
+        let messageTimer = null;
 
         function showFinalMessage() {
             var memoriesSec = document.getElementById('memories-section');
@@ -703,31 +751,32 @@
             var lovePage = document.getElementById('love-page');
             lovePage.style.display = 'flex';
 
+            if(messageTimer) clearInterval(messageTimer);
             displayNextMessage();
+            messageTimer = setInterval(displayNextMessage, 4500);
         }
 
         function displayNextMessage() {
             const textContainer = document.getElementById('sliding-text');
             if (!textContainer) return;
 
-            if (currentIndex >= loveMessages.length) {
-                currentIndex = 0;
+            if (msgIndex >= loveMessages.length) {
+                msgIndex = 0;
             }
 
-            textContainer.style.opacity = 0;
+            // إخفاء النص الحالي بنعومة
+            textContainer.classList.remove('show');
             
             setTimeout(() => {
-                if (loveMessages[currentIndex]) {
-                    textContainer.innerHTML = loveMessages[currentIndex];
-                    textContainer.style.opacity = 1;
-                }
-                currentIndex++;
-            }, 500);
-
-            setTimeout(displayNextMessage, 4000);
+                textContainer.innerHTML = loveMessages[msgIndex];
+                // إظهار النص الجديد بنعومة
+                textContainer.classList.add('show');
+                msgIndex++;
+            }, 400);
         }
 
         function goBackToHome() {
+            if(messageTimer) clearInterval(messageTimer);
             location.reload();
         }
     </script>
