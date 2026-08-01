@@ -442,7 +442,16 @@
             opacity: 1;
             transform: translateY(0);
         }
-    </style>
+
+    /* كود حماية الصور من السحب والتحديد */
+    img {
+        -webkit-user-drag: none;
+        user-select: none;
+        -webkit-user-select: none; /* للأيفون وبعض متصفحات سفاري */
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
 </head>
 <body>
 
@@ -586,7 +595,7 @@
     <script>
         function checkPass() {
             var pass = document.getElementById('passcode').value;
-            if(pass === "2024") {
+            if(pass === "2026") {
                 alert("منور يا حبيبي ، عرفت كلمه السر!");
                 
                 var song = document.getElementById('love-song');
@@ -779,6 +788,23 @@
             if(messageTimer) clearInterval(messageTimer);
             location.reload();
         }
+    <script>
+        // منع زر الفأرة الأيمن
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // منع اختصارات لوحة المفاتيح لفتح المطورين (F12, Ctrl+Shift+I, Ctrl+U، إلخ)
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) || 
+                (e.ctrlKey && e.key === 'U')
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 </body>
 </html>
